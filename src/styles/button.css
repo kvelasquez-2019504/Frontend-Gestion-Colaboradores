@@ -1,0 +1,8 @@
+#btnLogin{
+    cursor: pointer;
+}
+
+#btnLogin:disabled{
+    background-color: rgb(133, 30, 12);
+    cursor: not-allowed;
+}
