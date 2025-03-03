@@ -24,40 +24,45 @@ export const Table = ({ isLoading, colaborators, setColaborator, setViewForm, se
         if (edad >= 18 && edad <= 25) {
             toast.success('FUERA DE PELIGRO', {
                 style: {
-                    border: '1px solid #713200',
+                    font: '18px sans-serif',
+                    border: '2px solid green',
                     padding: '16px',
-                    color: '#713200',
+                    color: 'green',
                 },
                 iconTheme: {
-                    primary: '#713200',
-                    secondary: '#FFFAEE',
+                    primary: 'green',
+                    secondary: 'white',
                 },
             });
         }
         if (edad >= 26 && edad <= 50) {
             toast.success('TENGA CUIDADO, TOME TODAS LAS MEDIDAS DE PREVENCIÓN', {
                 style: {
-                    border: '1px solid #713200',
+                    font: '18px sans-serif',
+                    border: '2px solid yellow',
                     padding: '16px',
-                    color: '#713200',
+                    color: 'black',
                 },
-                iconTheme: {
-                    primary: '#713200',
-                    secondary: '#FFFAEE',
+                iconTheme: {                  
+                    primary: 'yellow',
+                    secondary: 'black',
                 },
+                icon: '⚠️',
             });
         } 
         if(edad>=51){
             toast.success('POR FAVOR QUÉDESE EN CASA', {
                 style: {
-                    border: '1px solid #713200',
+                    font: '18px sans-serif',
+                    border: '2px solid red',
                     padding: '16px',
-                    color: '#713200',
+                    color: 'black',
                 },
                 iconTheme: {
-                    primary: '#713200',
-                    secondary: '#FFFAEE',
+                    primary: 'red',
+                    secondary: 'black',
                 },
+                icon: '🚨',
             });
         }
     }
