@@ -5,6 +5,7 @@ import { Label } from "./Label"
 import { validateText, validateTextMessage } from "../shared/validator/validateText";
 import { validateEdad, validateEdadMessage } from "../shared/validator/";
 import { useColaborator } from "../shared/hooks/useColaborator";
+import { toast } from "react-hot-toast";
 export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, edit, setEditColaborator }) => {
     const [formState, setFormState] = useState({
         NOMBRE: {
@@ -69,7 +70,7 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
     }, [colaborator]);
 
     const { postColaborator, putColaborator, isLoading } = useColaborator();
-    
+
     const handleInputValueChange = (value, field) => {
         setFormState((prevState) => ({
             ...prevState,
@@ -91,10 +92,10 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
                 isValid = validateEdad(value);
                 break;
             case "DIRECCION":
-                isValid = validateText( value);
+                isValid = validateText(value);
                 break;
             case "PROFESION":
-                isValid = validateText( value);
+                isValid = validateText(value);
                 break;
             case "ESTADOCIVIL":
                 isValid = validateText(value);
@@ -188,20 +189,24 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
 
     const handlePostColaborator = async (e) => {
         e.preventDefault();
-        if (edit) {
-            await putColaborator(colaborator.IDCOLABORADOR, formState.NOMBRE.value, formState.APELLIDO.value, formState.DIRECCION.value, parseInt(formState.EDAD.value), formState.PROFESION.value, formState.ESTADOCIVIL.value
-            );
-            setLoadingList(!loadingList);
-            setViewForm();
-            cleanForm();
-            setEditColaborator(false);
+        if (parseInt(formState.EDAD.value) < 18) {
+            toast.error('La edad mínima es 18 años', { position: 'top-center' });
         } else {
-            await postColaborator(formState.NOMBRE.value, formState.APELLIDO.value, formState.DIRECCION.value,
-                parseInt(formState.EDAD.value), formState.PROFESION.value, formState.ESTADOCIVIL.value
-            );
-            setLoadingList(!loadingList);
-            setViewForm();
-            cleanForm();
+            if (edit) {
+                await putColaborator(colaborator.IDCOLABORADOR, formState.NOMBRE.value, formState.APELLIDO.value, formState.DIRECCION.value, parseInt(formState.EDAD.value), formState.PROFESION.value, formState.ESTADOCIVIL.value
+                );
+                setLoadingList(!loadingList);
+                setViewForm();
+                cleanForm();
+                setEditColaborator(false);
+            } else {
+                await postColaborator(formState.NOMBRE.value, formState.APELLIDO.value, formState.DIRECCION.value,
+                    parseInt(formState.EDAD.value), formState.PROFESION.value, formState.ESTADOCIVIL.value
+                );
+                setLoadingList(!loadingList);
+                setViewForm();
+                cleanForm();
+            }
         }
     }
 
@@ -216,7 +221,7 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
 
     return (
         <div className="grid grid-cols-3 grid-rows-3 w-4/5 h-3/4 bg-white rounded-xl shadow-lg p-2">
-            <form  className="col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 items-center gap-x-5">
+            <form className="col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 items-center gap-x-5">
                 <div className="col-start-1 row-start-1">
                     <Label htmlFor={"NOMBRE"} text={"Nombre"} />
                     <Input
@@ -257,7 +262,7 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
                         placeholderText={"Edad"}
                         showErrorMessage={formState.EDAD.showError}
                         validationMessage={validateEdadMessage}
-                        min ="1"
+                        min="1"
                         max="120"
                     />
                 </div>

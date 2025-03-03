@@ -43,14 +43,14 @@ export const Table = ({ isLoading, colaborators, setColaborator, setViewForm, se
                     padding: '16px',
                     color: 'black',
                 },
-                iconTheme: {                  
+                iconTheme: {
                     primary: 'yellow',
                     secondary: 'black',
                 },
                 icon: '⚠️',
             });
-        } 
-        if(edad>=51){
+        }
+        if (edad >= 51) {
             toast.success('POR FAVOR QUÉDESE EN CASA', {
                 style: {
                     font: '18px sans-serif',
@@ -81,30 +81,33 @@ export const Table = ({ isLoading, colaborators, setColaborator, setViewForm, se
                         <th className="py-3 px-4">OPCIONES</th>
                     </tr>
                 </thead>
-
-                {isLoading ? (<div> cargando...</div>) : (<tbody>{
-                    colaborators.map((col) => (
-                        <tr key={col.IDCOLABORADOR} className="border-t">
-                            <td className="py-3 px-4">{col.NOMBRE}</td>
-                            <td className="py-3 px-4">{col.APELLIDO}</td>
-                            <td className="py-3 px-4">{col.DIRECCION}</td>
-                            <td className="py-3 px-4">{col.EDAD}</td>
-                            <td className="py-3 px-4">{col.PROFESION}</td>
-                            <td className="py-3 px-4">{col.ESTADOCIVIL}</td>
-                            <td className="py-1 px-4 flex flex-row">
-                                <Button typeBtn="button"
-                                    className={'w-full rounded-md bg-yellow-500 py-0.5 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-yellow-500 focus:shadow-none active:bg-yellow-600 hover:bg-yellow-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2'}
-                                    onClickBtn={onEdit} text={'EDITAR'} idBtn={col.IDCOLABORADOR} />
-                                <Button typeBtn="button"
-                                    className={'w-full rounded-md bg-red-800 py-0.5 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-red-700 focus:shadow-none active:bg-red-500 hover:bg-red-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2 row-span-1'}
-                                    onClickBtn={onDelete} text={'ELIMINAR'} idBtn={col.IDCOLABORADOR} />
-                                <Button typeBtn="button"
-                                    className={'w-full rounded-md bg-pink-500 py-0.5 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-pink-500 focus:shadow-none active:bg-pink-600 hover:bg-pink-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2 row-span-1'}
-                                    onClickBtn={onNotificationEdad} text={'NIVEL DE RIESGO'} idBtn={col.EDAD} />
-                            </td>
-                        </tr>
-                    ))
-                }</tbody>)}
+                <tbody>
+                {isLoading ? (<tr> CARGANDO...</tr>) : 
+                    (Array.isArray(colaborators) && colaborators.length > 0 ?
+                        (colaborators.map((col) => (
+                            <tr key={col.IDCOLABORADOR} className="border-t">
+                                <td className="py-3 px-4">{col.NOMBRE}</td>
+                                <td className="py-3 px-4">{col.APELLIDO}</td>
+                                <td className="py-3 px-4">{col.DIRECCION}</td>
+                                <td className="py-3 px-4">{col.EDAD}</td>
+                                <td className="py-3 px-4">{col.PROFESION}</td>
+                                <td className="py-3 px-4">{col.ESTADOCIVIL}</td>
+                                <td className="py-1 px-4 flex flex-row">
+                                    <Button typeBtn="button"
+                                        className={'w-full rounded-md bg-yellow-500 py-0.5 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-yellow-500 focus:shadow-none active:bg-yellow-600 hover:bg-yellow-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2'}
+                                        onClickBtn={onEdit} text={'EDITAR'} idBtn={col.IDCOLABORADOR} />
+                                    <Button typeBtn="button"
+                                        className={'w-full rounded-md bg-red-800 py-0.5 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-red-700 focus:shadow-none active:bg-red-500 hover:bg-red-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2 row-span-1'}
+                                        onClickBtn={onDelete} text={'ELIMINAR'} idBtn={col.IDCOLABORADOR} />
+                                    <Button typeBtn="button"
+                                        className={'w-full rounded-md bg-pink-500 py-0.5 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-pink-500 focus:shadow-none active:bg-pink-600 hover:bg-pink-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2 row-span-1'}
+                                        onClickBtn={onNotificationEdad} text={'NIVEL DE RIESGO'} idBtn={col.EDAD} />
+                                </td>
+                            </tr>
+                        ))) 
+                        : (<tr><td colSpan="7" className="py-3 px-4 text-center">No hay colaboradores registrados.</td></tr>)
+                   )}
+                </tbody>
             </table>
         </div>
     )
