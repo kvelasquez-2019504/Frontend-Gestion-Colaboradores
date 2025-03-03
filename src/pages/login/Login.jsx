@@ -1,7 +1,7 @@
 import { Input } from "../../components/Input"
 import { Label } from "../../components/Label"
 import { useState } from "react"
-import { validateNumbers, validateNumbersMessage } from "../../shared/validator"
+import { validateNumbers, validateNumbersMessage, validateEdad, validateEdadMessage } from "../../shared/validator"
 import { useLogin } from "../../shared/hooks/"
 import "../../styles/button.css"
 
@@ -28,6 +28,28 @@ export const Login = () => {
                 value,
             },
         }));
+        let isValid = false;
+
+        switch (field) {
+            case "IDCOLABORADOR":
+                isValid = validateNumbers(value);
+                break;
+            case "EDAD":
+                isValid = validateEdad(value);
+                break;
+            default:
+                isValid = true;
+                break;
+        }
+
+        setFormState((prevState) => ({
+            ...prevState,
+            [field]: {
+                ...prevState[field],
+                isValid,
+                showError: !isValid,
+            },
+        }));
     };
 
     const handleInputValidationOnBlur = (value, field) => {
@@ -38,7 +60,7 @@ export const Login = () => {
                 isValid = validateNumbers(value);
                 break;
             case "EDAD":
-                isValid = validateNumbers(value);
+                isValid = validateEdad(value);
                 break;
             default:
                 isValid = true;
@@ -79,6 +101,7 @@ export const Login = () => {
                         placeholderText={"ID de colaborador"}
                         showErrorMessage={formState.IDCOLABORADOR.showError}
                         validationMessage={validateNumbersMessage}
+                        min={1}
                     />
                 </div>
                 <div className="w-xl max-sm:w-sm">
@@ -92,7 +115,9 @@ export const Login = () => {
                         label="Edad"
                         placeholderText={"Edad"}
                         showErrorMessage={formState.EDAD.showError}
-                        validationMessage={validateNumbersMessage}
+                        validationMessage={validateEdadMessage}
+                        min="1"
+                        max="120"
                     />
                 </div>
                 <button onClick={handleLogin} disabled={buttonDisabled} className="text-white px-4 sm:px-8 py-2 sm:py-3 bg-sky-700 hover:bg-sky-800 font-serif" id="btnLogin">

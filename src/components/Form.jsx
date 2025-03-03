@@ -3,7 +3,7 @@ import { Input } from "./Input"
 import { Button } from "./Button"
 import { Label } from "./Label"
 import { validateText, validateTextMessage } from "../shared/validator/validateText";
-import { validateNumbers, validateNumbersMessage } from "../shared/validator/validateNumbers";
+import { validateEdad, validateEdadMessage } from "../shared/validator/";
 import { useColaborator } from "../shared/hooks/useColaborator";
 export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, edit, setEditColaborator }) => {
     const [formState, setFormState] = useState({
@@ -62,7 +62,6 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
                 value: colaborator.PROFESION || ""
             },
             ESTADOCIVIL: {
-                
                 ...prevState.ESTADOCIVIL,
                 value: colaborator.ESTADOCIVIL || ""
             }
@@ -79,6 +78,40 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
                 value,
             },
         }));
+        let isValid = false;
+
+        switch (field) {
+            case "NOMBRE":
+                isValid = validateText(value);
+                break;
+            case "APELLIDO":
+                isValid = validateText(value);
+                break;
+            case "EDAD":
+                isValid = validateEdad(value);
+                break;
+            case "DIRECCION":
+                isValid = validateText( value);
+                break;
+            case "PROFESION":
+                isValid = validateText( value);
+                break;
+            case "ESTADOCIVIL":
+                isValid = validateText(value);
+                break;
+            default:
+                isValid = true;
+                break;
+        }
+
+        setFormState((prevState) => ({
+            ...prevState,
+            [field]: {
+                ...prevState[field],
+                isValid,
+                showError: !isValid,
+            },
+        }));
     };
 
     const handleInputValidationOnBlur = (value, field) => {
@@ -86,22 +119,22 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
 
         switch (field) {
             case "NOMBRE":
-                isValid = validateText(field, value);
+                isValid = validateText(value);
                 break;
             case "APELLIDO":
-                isValid = validateText(field, value);
+                isValid = validateText(value);
                 break;
             case "EDAD":
-                isValid = validateNumbers(value);
+                isValid = validateEdad(value);
                 break;
             case "DIRECCION":
-                isValid = validateText(field, value);
+                isValid = validateText(value);
                 break;
             case "PROFESION":
-                isValid = validateText(field, value);
+                isValid = validateText(value);
                 break;
             case "ESTADOCIVIL":
-                isValid = validateText(field, value);
+                isValid = validateText(value);
                 break;
             default:
                 isValid = true;
@@ -159,6 +192,7 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
             await putColaborator(colaborator.IDCOLABORADOR, formState.NOMBRE.value, formState.APELLIDO.value, formState.DIRECCION.value, parseInt(formState.EDAD.value), formState.PROFESION.value, formState.ESTADOCIVIL.value
             );
             setLoadingList(!loadingList);
+            setViewForm();
             cleanForm();
             setEditColaborator(false);
         } else {
@@ -166,6 +200,7 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
                 parseInt(formState.EDAD.value), formState.PROFESION.value, formState.ESTADOCIVIL.value
             );
             setLoadingList(!loadingList);
+            setViewForm();
             cleanForm();
         }
     }
@@ -180,8 +215,8 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
     const btnDisable = isLoading || !formState.NOMBRE.isValid || !formState.APELLIDO.isValid || !formState.EDAD.isValid || !formState.DIRECCION.isValid || !formState.PROFESION.isValid || !formState.ESTADOCIVIL.isValid;
 
     return (
-        <div className="grid grid-cols-3 grid-rows-3 w-auto min-sm:w-4xl">
-            <form action="" className="col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 items-center gap-x-5">
+        <div className="grid grid-cols-3 grid-rows-3 w-4/5 h-3/4 bg-white rounded-xl shadow-lg p-2">
+            <form  className="col-span-3 row-span-3 grid grid-cols-3 grid-rows-3 items-center gap-x-5">
                 <div className="col-start-1 row-start-1">
                     <Label htmlFor={"NOMBRE"} text={"Nombre"} />
                     <Input
@@ -221,7 +256,9 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
                         label="Edad"
                         placeholderText={"Edad"}
                         showErrorMessage={formState.EDAD.showError}
-                        validationMessage={validateNumbersMessage}
+                        validationMessage={validateEdadMessage}
+                        min ="1"
+                        max="120"
                     />
                 </div>
                 <div className="col-start-1 col-span-2 row-start-2">

@@ -5,6 +5,7 @@ const API = axios.create({
     timeout:5000
 });
 
+// Interceptor para enviar el token en las peticiones a la API
 API.interceptors.request.use(
     (config) => {
       const getToken = localStorage.getItem("token");
@@ -19,6 +20,7 @@ API.interceptors.request.use(
     }
 );
 
+//Consume el endpoint de login de la API
 export const login = async (data)=>{
     try {
         const response = await API.post("/login", data );
@@ -31,6 +33,7 @@ export const login = async (data)=>{
     }
 }
 
+//Consume el endpoint de registro de la API para obtener los colaboradores
 export const getColaborator=async(data)=>{
     try {
         const response = await API.get(`/get/colaborador?page=${data.page}&pageSize=${data.pageSize}`);
@@ -43,9 +46,9 @@ export const getColaborator=async(data)=>{
     }
 }
 
+//Consume el endpoint de buscar colaborador por ID de la API para obtener un colaborador en especifico
 export const getColaboratorById=async(data)=>{
     try {
-        console.log(data)
         const response = await API.get(`/find/colaborador/${data.idColaborador}`);
         return response;
     } catch (e) {
@@ -56,8 +59,8 @@ export const getColaboratorById=async(data)=>{
     }
 }
 
+//Consume el endpoint de registro de la API para registrar un colaborador nuevo
 export const postColaborator= async(data)=>{
-    console.log(data)
     try {
         const response = await API.post('/post/colaborador',data);
         return response;
@@ -69,6 +72,7 @@ export const postColaborator= async(data)=>{
     }
 }
 
+//Consume el endpoint de la API para actualizar un colaborador
 export const putColaborator = async(data)=>{
     try {
         const response = await API.put(`/put/colaborador/${data.IDCOLABORADOR}`, data);
@@ -81,6 +85,7 @@ export const putColaborator = async(data)=>{
     }
 }
 
+//Consume el endpoint de la API para eliminar un colaborador
 export const deleteColaborator = async(data)=>{
     try {
         const response = await API.delete(`/delete/colaborador/${data.idColaborador}`);

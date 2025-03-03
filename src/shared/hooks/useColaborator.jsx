@@ -8,10 +8,12 @@ import { getColaborator as getColaboratorRequest,
     deleteColaborator as deleteColaboratorRequest
 } from '../../services/api';
 
+// Custom hook que contiene las funciones para obtener, agregar, actualizar y eliminar colaboradores
 export const useColaborator = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [colaborators, setColaborators] = useState([]);
 
+    // Función para obtener los colaboradores de la base de datos 
     const getColaborator = async (page = 1, pageSize=10) => {
         setIsLoading(true);
         const response = await getColaboratorRequest({page, pageSize});
@@ -26,6 +28,7 @@ export const useColaborator = () => {
         return response;
     };
 
+    // Función para obtener un colaborador por su id de la base de datos
     const getColaboratorById = async (idColaborador) => {
         setIsLoading(true);
         const response = await getColaboratorByIdRequest({idColaborador});
@@ -39,6 +42,7 @@ export const useColaborator = () => {
         return response.data;
     };
 
+    // Función para agregar un colaborador a la base de datos
     const postColaborator = async(NOMBRE, APELLIDO, DIRECCION, EDAD, PROFESION, ESTADOCIVIL)=>{
         setIsLoading(true);
         const response = await postColaboratorRequest({NOMBRE, APELLIDO, DIRECCION, EDAD, PROFESION, ESTADOCIVIL});
@@ -52,6 +56,7 @@ export const useColaborator = () => {
         toast.success("Se ha añadido el colaborador");
     }
 
+    // Función para actualizar un colaborador en la base de datos
     const putColaborator = async(IDCOLABORADOR, NOMBRE, APELLIDO, DIRECCION, EDAD, PROFESION, ESTADOCIVIL)=>{
         setIsLoading(true);
         const response = await putColaboratorRequest({IDCOLABORADOR, NOMBRE, APELLIDO, DIRECCION, EDAD, PROFESION, ESTADOCIVIL});
@@ -65,6 +70,7 @@ export const useColaborator = () => {
         toast.success(`Se ha actualizado el colaborador`, {duration: 6000});
     }
 
+    // Función para eliminar un colaborador de la base de datos
     const deleteColaborator = async (idColaborador) => {
         setIsLoading(true);
         const response = await deleteColaboratorRequest({idColaborador});
@@ -76,6 +82,7 @@ export const useColaborator = () => {
         setIsLoading(false);
         toast.success(`Se ha eliminado el colaborador`);
     };
-
+    
+    // Retorna las funciones y los estados necesarios para el manejo de colaboradores
     return { getColaborator, postColaborator, getColaboratorById, putColaborator, deleteColaborator, colaborators, isLoading };
 }

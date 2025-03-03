@@ -1,12 +1,17 @@
 
-export const validateText = (field='',value='')=>{
-    if(value.length>45){
+export const validateText = (value='')=>{
+    const regex = /^[a-zA-Z\s]*$/;
+    if(regex.test(value)===false){
         return false;
-    }else if(value.length==0){
+    }
+    if(value.trim().length>45){
+        return false;
+    }
+    if(value.trim().length==0){
         return false;
     }else{
         return true;
     }
 }
 
-export const validateTextMessage = `El campo no debe estar vacio, ni ser mayor a 45 caracteres`
+export const validateTextMessage = `El campo necesita de (1-45) letras`;

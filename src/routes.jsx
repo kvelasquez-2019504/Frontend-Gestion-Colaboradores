@@ -3,7 +3,8 @@ import { Dashboard } from "./pages/dashboard";
 
 const routes = [
     { path: "/", element: <Login /> },
-    { path: "/principal", element: <Dashboard /> }
+    { path: "*", element: <Login /> },
+    { path: "/principal", element: <Dashboard /> },
 ]
 
 

@@ -7,6 +7,7 @@ export const useLogin = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
+    //Funcion para iniciar sesion con el servidor, recibe el IDCOLABORADOR y la EDAD
     const login = async (IDCOLABORADOR, EDAD) => {
         setIsLoading(true);
         const response = await loginRequest({ IDCOLABORADOR, EDAD });
@@ -21,9 +22,10 @@ export const useLogin = () => {
         navigate('/principal');
     };
 
+    //Funcion para cerrar sesion, elimina el token del localstorage y redirige al login
     const logout = ()=>{
         localStorage.removeItem('token');
-        navigate('/')
+        navigate('/');
     }
 
     return { login, logout, isLoading };

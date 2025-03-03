@@ -1,14 +1,13 @@
 
 export const Input = ({ field,
-    label,
     placeholderText,
     value,
     onChangeHandler,
     type,
-    classNameInput,
     showErrorMessage,
     validationMessage,
-    onBlurHandler
+    onBlurHandler,
+    ...restProps
 }) => {
 
     const handleValueChange = (event) => {
@@ -27,10 +26,11 @@ export const Input = ({ field,
                     onChange={handleValueChange}
                     onBlur={handleInputBlur}
                     placeholder={placeholderText}
-                    className="w-full px-3 py-2 mt-2 text-gray-800 bg-transparent border 
+                    className="w-full px-3 py-2 text-gray-800 bg-transparent border 
                     rounded-lg shadow-sm outline-none"
+                    {...restProps}
                 />
-                <span className="text-red-500 w-full">
+                <span className="text-red-500 sticky center">
                     {showErrorMessage && validationMessage}
                 </span>
             </div>

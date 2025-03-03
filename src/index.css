@@ -4,4 +4,10 @@
     html {
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
+    button{
+        cursor: pointer;
+    }
+    button:active{
+        cursor:grabbing;
+    }
 }

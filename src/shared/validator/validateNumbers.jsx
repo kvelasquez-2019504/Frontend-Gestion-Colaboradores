@@ -1,7 +1,8 @@
 export const validateNumbers = (number='') => {
-    if(number.length === 0) return false;
-    if(number < 1 || number > 120) return false;
-    return true
+    if(number<1){
+        return false;
+    }
+     return /^[0-9]*$/.test(number);
 }
 
-export const validateNumbersMessage = 'Solo se permiten numeros del 1 al 120'
+export const validateNumbersMessage = 'Ingrese solo números mayores a 0';
