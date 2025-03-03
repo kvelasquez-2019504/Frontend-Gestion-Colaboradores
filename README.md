@@ -1,3 +1,29 @@
+# Frontend-Gestion-Colaboradores
+## Documentación del Proyecto
+
+Este proyecto es una prueba técnica para la gestión de colaboradores.
+
+## Configuraciones Iniciales
+
+1. Clona el repositorio:
+    ```bash
+    git clone https://github.com/kvelasquez-2019504/Frontend-Gestion-Colaboradores.git
+    ```
+2. Navega al directorio del proyecto:
+    ```bash
+    cd Frontend-Gestion-Colaboradores
+    ```
+3. Instala las dependencias:
+    ```bash
+    npm install
+    ```
+## Comandos
+
+- Iniciar el proyecto Front:
+    ```bash
+    npm run dev
+    ```
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
