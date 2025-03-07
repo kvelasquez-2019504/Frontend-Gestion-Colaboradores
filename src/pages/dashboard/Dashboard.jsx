@@ -42,8 +42,8 @@ export const Dashboard = () => {
     };
 
     const changeVisibleForm = (e) => {
+        setEditColaborator(false);
         if (editColaborator) {
-            setEditColaborator(true);
             setColaborator({ ...e });
             setViewForm(!viewForm);
         } else {

@@ -195,14 +195,15 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
             if (edit) {
                 await putColaborator(colaborator.IDCOLABORADOR, formState.NOMBRE.value, formState.APELLIDO.value, formState.DIRECCION.value, parseInt(formState.EDAD.value), formState.PROFESION.value, formState.ESTADOCIVIL.value
                 );
+                setEditColaborator(false);
                 setLoadingList(!loadingList);
                 setViewForm();
                 cleanForm();
-                setEditColaborator(false);
             } else {
                 await postColaborator(formState.NOMBRE.value, formState.APELLIDO.value, formState.DIRECCION.value,
                     parseInt(formState.EDAD.value), formState.PROFESION.value, formState.ESTADOCIVIL.value
                 );
+                setEditColaborator(false);
                 setLoadingList(!loadingList);
                 setViewForm();
                 cleanForm();
