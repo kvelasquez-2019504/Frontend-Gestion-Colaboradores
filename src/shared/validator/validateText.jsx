@@ -1,9 +1,5 @@
 
 export const validateText = (value='')=>{
-    const regex = /^[a-zA-Z\s]*$/;
-    if(regex.test(value)===false){
-        return false;
-    }
     if(value.trim().length>45){
         return false;
     }
