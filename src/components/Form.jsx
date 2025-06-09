@@ -10,32 +10,32 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
     const [formState, setFormState] = useState({
         NOMBRE: {
             value: colaborator.NOMBRE || "",
-            isValid: false,
+            isValid: true,
             showError: false
         },
         APELLIDO: {
             value: colaborator.APELLIDO || "",
-            isValid: false,
+            isValid: true,
             showError: false
         },
         EDAD: {
             value: colaborator.EDAD || "",
-            isValid: false,
+            isValid: true,
             showError: false
         },
         DIRECCION: {
             value: colaborator.DIRECCION || "",
-            isValid: false,
+            isValid: true,
             showError: false
         },
         PROFESION: {
             value: colaborator.PROFESION || "",
-            isValid: false,
+            isValid: true,
             showError: false
         },
         ESTADOCIVIL: {
             value: colaborator.ESTADOCIVIL || "",
-            isValid: false,
+            isValid: true,
             showError: false
         }
     });
@@ -70,6 +70,8 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
     }, [colaborator]);
 
     const { postColaborator, putColaborator, isLoading } = useColaborator();
+
+
 
     const handleInputValueChange = (value, field) => {
         setFormState((prevState) => ({
@@ -156,32 +158,32 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
         setFormState({
             NOMBRE: {
                 value: "",
-                isValid: false,
+                isValid: true,
                 showError: false
             },
             APELLIDO: {
                 value: "",
-                isValid: false,
+                isValid: true,
                 showError: false
             },
             EDAD: {
                 value: "",
-                isValid: false,
+                isValid: true,
                 showError: false
             },
             DIRECCION: {
                 value: "",
-                isValid: false,
+                isValid: true,
                 showError: false
             },
             PROFESION: {
                 value: "",
-                isValid: false,
+                isValid: true,
                 showError: false
             },
             ESTADOCIVIL: {
                 value: "",
-                isValid: false,
+                isValid: true,
                 showError: false
             },
         });
@@ -210,6 +212,11 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
             }
         }
     }
+    
+    const btnDisable = isLoading || !formState.NOMBRE.isValid || !formState.APELLIDO.isValid
+        || !formState.EDAD.isValid || !formState.DIRECCION.isValid || !formState.PROFESION.isValid
+        || !formState.ESTADOCIVIL.isValid;
+    console.log("nombre ", formState.NOMBRE.isValid, " apellido ", formState.APELLIDO.isValid, " edad ", formState.EDAD.isValid, " direccion ", formState.DIRECCION.isValid, " profesion ", formState.PROFESION.isValid, " estado civil ", formState.ESTADOCIVIL.isValid);
 
     const handleCancel = (e) => {
         e.preventDefault();
@@ -217,8 +224,6 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
         setViewForm();
         setEditColaborator(false);
     }
-
-    const btnDisable = isLoading || !formState.NOMBRE.isValid || !formState.APELLIDO.isValid || !formState.EDAD.isValid || !formState.DIRECCION.isValid || !formState.PROFESION.isValid || !formState.ESTADOCIVIL.isValid;
 
     return (
         <div className="grid grid-cols-3 grid-rows-3 w-4/5 h-3/4 bg-white rounded-xl shadow-lg p-2">
@@ -311,7 +316,7 @@ export const Form = ({ setLoadingList, loadingList, setViewForm, colaborator, ed
                 </div>
                 <Button typeBtn="button"
                     className={' rounded-md bg-green-800 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-700 focus:shadow-none active:bg-green-700 hover:bg-green-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none row-start-3 col-start-2 p-2 h-15'}
-                    onClickBtn={handlePostColaborator} disabled={edit ? false : btnDisable} text={edit ? 'ACTUALIZAR' : 'GUARDAR'} />
+                    onClickBtn={handlePostColaborator} disabled={btnDisable} text={edit ? 'ACTUALIZAR' : 'GUARDAR'} />
 
                 <Button typeBtn="button" className={' rounded-md bg-red-600 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-red-700 focus:shadow-none active:bg-red-700 hover:bg-red-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none row-start-3 col-start-3 h-15'} onClickBtn={handleCancel} text={'CANCELAR'} />
             </form>

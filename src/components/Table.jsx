@@ -68,7 +68,7 @@ export const Table = ({ isLoading, colaborators, setColaborator, setViewForm, se
     }
 
     return (
-        <div className="w-auto text-center grid grid-rows-1 items-center p-2">
+        <div className="w-auto text-center grid grid-rows-1 items-center p-2 overflow-auto">
             <table className="w-full table-auto bg-white shadow-md rounded-lg overflow-hidden">
                 <thead>
                     <tr className="bg-gray-100 text-center">
